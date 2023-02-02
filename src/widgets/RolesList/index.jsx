@@ -1,6 +1,7 @@
 // styling
 import styled from 'styled-components/macro';
 import {flex, breakpoints} from '@styles/vars';
+import {NavWrapper} from './style';
 
 // styled components
 import {Header} from '@components/Widget/style';
@@ -13,6 +14,7 @@ import GenderNav from '@components/GenderNav';
 import SearchBar from '@ui/SearchBar';
 import Group from './Group';
 import NoDataPlaceholder from '@components/NoDataPlaceholder';
+import RolesEditModal from '@ui/RolesEditModal';
 
 // utils
 import {depsOptions} from '@constants/options';
@@ -20,9 +22,11 @@ import {useState} from 'react';
 
 // hooks
 import useGenderFilter from '@hooks/useGenderFilter';
+import useNotistack from '@hooks/useNotistack';
 
 // data placeholder
 import {roles} from '@db/roles';
+import Btn from '@ui/Btn';
 
 export const ListHeader = styled(Header)`
   padding: 24px 0 20px;
@@ -54,6 +58,22 @@ const RolesList = ({variant}) => {
     const [category, setCategory] = useState(depsOptions[0]);
     const [search, setSearch] = useState('');
     const {gender, setGender} = useGenderFilter();
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOpen = () => {
+      setOpenModal(true);
+    }
+
+    const handleClose = () => {
+      setOpenModal(false);
+    }
+    
+    const {notify} = useNotistack('Your changes have been successfully saved.', 'success');
+
+    const handleRegister = () => {
+      setOpenModal(false);
+    }
+    
 
     // const filteredStaff = staff.filter(item => {
     //     const name = `${item.firstName} ${item.lastName}`;
@@ -75,10 +95,11 @@ const RolesList = ({variant}) => {
     return (
         <Widget name="RolesList">
             <ListHeader>
-                <div className="wrapper">
+                <NavWrapper>
                     <CustomSelect options={depsOptions} variant="minimal" value={category} changeHandler={setCategory}/>
+                    <Btn text="New Role" handler={handleOpen} type="button" />
                     <GenderNav state={gender} handler={setGender}/>
-                </div>
+                </NavWrapper>
                 <SearchBar placeholder="Search a doctor or medical department" handler={setSearch} value={search}/>
             </ListHeader>
             <WidgetBody style={{padding: 0}}>
@@ -87,6 +108,11 @@ const RolesList = ({variant}) => {
                         <Group arr={roles} />
                         :
                         <NoDataPlaceholder/>
+                }
+                {
+                    openModal ? 
+                        <RolesEditModal open={openModal} onClose={handleClose} onRegister={notify} /> 
+                        : null
                 }
             </WidgetBody>
         </Widget>
