@@ -16,6 +16,11 @@ export const depsOptions = [
     {value: 'cardio', label: 'Cardiologists'},
 ]
 
+export const activeOptions = [
+    {value: true, label: 'active'},
+    {value: false, label: 'inactive'}
+]
+
 export const testsOptions = [
     {value: 'all', label: 'All My Tests'},
     {value: 'blood', label: 'Blood Count'},

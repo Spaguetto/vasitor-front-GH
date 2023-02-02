@@ -38,6 +38,7 @@ const DoctorsReviews = lazy(() => import('@pages/DoctorsReviews'));
 const PatientReviews = lazy(() => import('@pages/PatientReviews'));
 const Finances = lazy(() => import('@pages/Finances'));
 const Settings = lazy(() => import('@pages/Settings'));
+const PlatformSettings = lazy(() => import('@pages/PlatformSettings'));
 const PageNotFound = lazy(() => import('@pages/PageNotFound'));
 
 const AppLayout = () => {
@@ -83,6 +84,7 @@ const AppLayout = () => {
                         <Route path="/doctor_reviews" element={<DoctorsReviews/>}/>
                         <Route path="/patient_reviews" element={<PatientReviews/>}/>
                         <Route path="/finances" element={<Finances/>}/>
+                        <Route path="/platform_settings" element={<PlatformSettings/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                         <Route path="/404" element={<PageNotFound/>}/>
                         <Route path="*" element={<Navigate to="/404" replace/>}/>

@@ -64,7 +64,12 @@ export const menu = [
     },
     {
         icon: 'settings',
-        name: 'Settings',
+        name: 'Platform settings',
+        link: '/platform_settings'
+    },
+    {
+        icon: 'settings',
+        name: 'User Settings',
         link: '/settings'
     }
 ]
