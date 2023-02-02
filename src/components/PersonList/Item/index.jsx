@@ -73,6 +73,7 @@ const Item = ({type, data}) => {
                         </div>
                     </>
                 )
+                // DISCUSS: cambiar el estilo de ActionButton y shapeButton, la experiencia se siente como un botón "lagueado"
             case 'patient':
                 return (
                     <>

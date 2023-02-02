@@ -14,10 +14,10 @@ const List = styled.ul`
   margin: 20px;
 `
 
-const RolesGroupedList = ({arr, deps}) => {
+const RolesGroupedList = ({arr, deps, deleteModalHandler}) => {
     // TODO: Ajustar filtros de lista de roles
     // const {search, category} = deps ? deps : {search: '', category: ''};
-    return <List>{arr.map((item, i) => <Item key={`${item.id}-${item.roleName}-${item.isActive}`} data={item} />)}</List>
+    return <List>{arr.map((item, i) => <Item key={`${item.id}-${item.roleName}-${item.isActive}`} data={item} deleteModalHandler={deleteModalHandler} />)}</List>
 }
 
 // TODO: Ajustar propTypes de lista de roles (probablemente no necesario).

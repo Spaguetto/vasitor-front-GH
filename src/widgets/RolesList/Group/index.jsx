@@ -5,7 +5,7 @@ import RolesGroupedList from '@components/RolesGroupedList';
 // helpers
 import {activeOptions} from '@constants/options';
 
-export default function Group({arr, variant, ...props}) {
+export default function Group({arr, deleteModalHandler, variant, ...props}) {
     // get unique departments list
     // FIXME: Optimizar/reducir
     const deps = [true, false];
@@ -22,7 +22,7 @@ export default function Group({arr, variant, ...props}) {
                     return (
                         <div key={dep}>
                             <GroupSeparator text={label}/>
-                            <RolesGroupedList arr={arrByDep(dep)} />
+                            <RolesGroupedList arr={arrByDep(dep)} deleteModalHandler={deleteModalHandler} />
                         </div>
                     )
                 })

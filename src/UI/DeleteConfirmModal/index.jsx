@@ -1,5 +1,6 @@
 //TODO: clean file
 //FIXME: contexto del modal para que quede superpuesto en toda la pagina.
+//FIXME: Modal no está cerrando al hacer click fuera de él.
 import React, { useState, useEffect, useRef } from "react";
 import {
   Dialog,
@@ -15,16 +16,17 @@ import {
   FormControlLabel,
   Checkbox,
   Input,
-  Box
+  Box,
+  Typography,
+  Divider
 } from "@mui/material";
 //import axios from "axios";
-import { Image } from "@mui/icons-material";
 import { registerStyles } from "@emotion/utils";
 // styled components
 import './style';
 import Btn from "@ui/Btn";
 
-function RolesEditModal({ open, onClose, onRegister }) {
+function DeleteConfirmAlert({ open, onClose, onDelete }) {
   const [data, setData] = useState({});
   const [files, setFiles] = useState({});
   const [rformData, setRformdata] = useState(new FormData());
@@ -70,68 +72,38 @@ function RolesEditModal({ open, onClose, onRegister }) {
     console.log(previewImage)
   };
 
-  const handleRegister = (event) => {
-    event.preventDefault();
 
-    onRegister();
-    onClose();
-
-    //console.log(rformData)
-
-    // axios
-    //   .post("http://192.168.1.92:5000/Item/createNew", rformData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-
-
-  //TODO: implementar fields del template:
-  // usando <Container/> (ver ejemplo usersettings)
-  // <LabeledFormInput id={`${type}ProfileBirthday`} title="Birthday" placeholder="Birthday"
-  // customInput={<Input as={DateInput} id={`${type}ProfileBirthday`} />}/>
+  //TODO: Estandarizar variables para cambiar el texto del modal
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Register new role</DialogTitle>
-      <DialogContent>
-        <form>
-          <FormGroup>
-            <TextField
-              onChange={handleChangeField}
-              required
-              name="roleName"
-              color="primary"
-              variant="standard"
-              label="Role Name"
-            />
-            <TextField
-              onChange={handleChangeField}
-              required
-              name="description"
-              color="primary"
-              variant="standard"
-              label="Description"
-            />
-          </FormGroup>
-        </form>
+    <Dialog
+      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
+      maxWidth="xs"
+      open={open}
+    >
+      <DialogTitle>Are you sure you want to delete this?</DialogTitle>
+      <DialogContent dividers>
+        <Typography>
+          Users will stop having access to this role and all the permissions related. 
+          You can undo this action unless you want to delete it permanently:
+        </Typography>
+        <FormControlLabel
+          sx={{ 
+            mt: 1,
+            ml: 1
+          }}
+          control={<Checkbox/>}
+          label={"delete permanently"}
+        />
       </DialogContent>
       <DialogActions>
-        <Btn text="Cancel" handler={onClose}/>
-        <Btn text="Register" handler={handleRegister} type="submit"/>
+        <Button autoFocus onClick={onClose}>
+          Cancel
+        </Button>
+        <Button onClick={onDelete}>Delete</Button>
       </DialogActions>
     </Dialog>
   );
-  // DISCUSS: cambiar los estilos de botones para el modal.
-  // DISCUSS: cambiar el estilo del modal
-  // DISCUSS: considerar más campos de ser necesario(?)
 }
 
-export default RolesEditModal;
+export default DeleteConfirmAlert;
 

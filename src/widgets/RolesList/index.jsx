@@ -1,3 +1,4 @@
+// FIXME: cambiar filtros de genero por filtros de isActive
 // styling
 import styled from 'styled-components/macro';
 import {flex, breakpoints} from '@styles/vars';
@@ -27,6 +28,7 @@ import useNotistack from '@hooks/useNotistack';
 // data placeholder
 import {roles} from '@db/roles';
 import Btn from '@ui/Btn';
+import DeleteConfirmAlert from '@ui/DeleteConfirmModal';
 
 export const ListHeader = styled(Header)`
   padding: 24px 0 20px;
@@ -59,6 +61,7 @@ const RolesList = ({variant}) => {
     const [search, setSearch] = useState('');
     const {gender, setGender} = useGenderFilter();
     const [openModal, setOpenModal] = useState(false);
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const handleOpen = () => {
       setOpenModal(true);
@@ -72,6 +75,14 @@ const RolesList = ({variant}) => {
 
     const handleRegister = () => {
       setOpenModal(false);
+    }
+    
+    const handleConfirmDeleteOpen = () => {
+      setOpenDeleteModal(true);
+    }
+
+    const handleConfirmDeleteClose = () => {
+      setOpenDeleteModal(false);
     }
     
 
@@ -105,7 +116,7 @@ const RolesList = ({variant}) => {
             <WidgetBody style={{padding: 0}}>
                 {
                     roles.length !== 0 ?
-                        <Group arr={roles} />
+                        <Group arr={roles} deleteModalHandler={handleConfirmDeleteOpen}/>
                         :
                         <NoDataPlaceholder/>
                 }
@@ -113,6 +124,16 @@ const RolesList = ({variant}) => {
                     openModal ? 
                         <RolesEditModal open={openModal} onClose={handleClose} onRegister={notify} /> 
                         : null
+                }
+                {
+                    openDeleteModal ? 
+                      <DeleteConfirmAlert
+                        id="ringtone-menu"
+                        open={openDeleteModal}
+                        onClose={handleConfirmDeleteClose}
+                        onDelete={handleConfirmDeleteClose}
+                      />
+                      : null
                 }
             </WidgetBody>
         </Widget>
