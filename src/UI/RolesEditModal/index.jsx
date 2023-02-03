@@ -24,50 +24,19 @@ import { registerStyles } from "@emotion/utils";
 import './style';
 import Btn from "@ui/Btn";
 
-function RolesEditModal({ open, onClose, onRegister }) {
-  const [data, setData] = useState({});
-  const [files, setFiles] = useState({});
-  const [rformData, setRformdata] = useState(new FormData());
-  const [previewImage, setPreviewImage] = useState('')
-  const inputFileRef = useRef(null);
+function RolesEditModal({ open, onClose, onRegister, data }) {
+  const [formData, setFormData] = useState({});
 
-  const handleButtonClick = () => {
-    if (inputFileRef.current !== null) {
-      inputFileRef.current.click();
-    }
-  }
+  useEffect(() => {
+    setFormData(data);
+  }, [data]);
 
   const handleChangeField = (event) => {
-    console.log(data);
-    setData({
-      ...data,
+    console.log(formData);
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value,
     });
-    rformData.set(event.target.name, event.target.value);
-    setRformdata(rformData);
-  };
-
-  const handleChangeFile = (event) => {
-    console.log(event.target.files[0]);
-    setFiles({
-      ...files,
-      [event.target.name]: event.target.files[0],
-    });
-    if(event.target.id == "main_image"){
-      const file = event.target.files[0]
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result);
-      }
-      reader.readAsDataURL(file);
-      rformData.append("main_image", event.target.files[0]);
-      setRformdata(rformData);
-    }
-    else{
-      rformData.append("other_media", event.target.files[0]);
-      setRformdata(rformData);
-    }
-    console.log(previewImage)
   };
 
   const handleRegister = (event) => {
@@ -110,6 +79,7 @@ function RolesEditModal({ open, onClose, onRegister }) {
               color="primary"
               variant="standard"
               label="Role Name"
+              defaultValue={data.roleName ? data.roleName : undefined}
             />
             <TextField
               onChange={handleChangeField}
@@ -118,6 +88,7 @@ function RolesEditModal({ open, onClose, onRegister }) {
               color="primary"
               variant="standard"
               label="Description"
+              defaultValue={data.description ? data.description : undefined}
             />
           </FormGroup>
         </form>

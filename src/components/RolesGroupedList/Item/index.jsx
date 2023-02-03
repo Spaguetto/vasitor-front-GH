@@ -11,7 +11,10 @@ import PropTypes from 'prop-types';
 
 // TODO: Optimizar / reducir el componente (por ahora se creó de la forma más rápida siguiendo el template)
 
-const Item = ({ data, deleteModalHandler }) => {
+
+// TODO: Revisar el classname Doctor para saber si hay que cambiarlo
+
+const Item = ({ data, deleteModalHandler, editModalHandler, editModalData }) => {
     const {id, roleName, description, isActive } = data;
 
     const Common = () => {
@@ -44,7 +47,7 @@ const Item = ({ data, deleteModalHandler }) => {
                 <Common/>
                 <RoleInfo />
                 <ShapeButton icon="trash-solid" label="Delete" shape="round" handler={deleteModalHandler}/>
-                <button className="booking">Editar rol</button>
+                <button className="booking" onClick={() => editModalHandler(data)}>Editar rol</button>
             </>
         )
     }

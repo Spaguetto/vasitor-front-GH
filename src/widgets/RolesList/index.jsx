@@ -62,12 +62,14 @@ const RolesList = ({variant}) => {
     const {gender, setGender} = useGenderFilter();
     const [openModal, setOpenModal] = useState(false);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [itemData, setItemData] = useState({});
 
     const handleOpen = () => {
       setOpenModal(true);
     }
 
     const handleClose = () => {
+      setItemData({});
       setOpenModal(false);
     }
     
@@ -83,6 +85,11 @@ const RolesList = ({variant}) => {
 
     const handleConfirmDeleteClose = () => {
       setOpenDeleteModal(false);
+    }
+
+    const handleEdit = (data) => {
+      setItemData(data);
+      setOpenModal(true);
     }
     
 
@@ -116,13 +123,13 @@ const RolesList = ({variant}) => {
             <WidgetBody style={{padding: 0}}>
                 {
                     roles.length !== 0 ?
-                        <Group arr={roles} deleteModalHandler={handleConfirmDeleteOpen}/>
+                        <Group arr={roles} deleteModalHandler={handleConfirmDeleteOpen} editModalHandler={handleEdit} editModalData={itemData}/>
                         :
                         <NoDataPlaceholder/>
                 }
                 {
                     openModal ? 
-                        <RolesEditModal open={openModal} onClose={handleClose} onRegister={notify} /> 
+                        <RolesEditModal open={openModal} onClose={handleClose} onRegister={notify} data={itemData}/> 
                         : null
                 }
                 {
