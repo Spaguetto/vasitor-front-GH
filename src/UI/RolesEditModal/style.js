@@ -2,6 +2,53 @@ import styled from 'styled-components/macro';
 import theme from 'styled-theming';
 import {colors, dark, breakpoints, flex, light, textSizes, fonts} from '@styles/vars';
 
+
+export const TextAreaField = styled.textarea`
+  height: 80px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: ${textSizes['14']};
+  ${theme('theme', {
+    light: `
+    background-color: ${light.highlight};
+   `,
+    dark: `
+    background-color: ${dark.highlight};
+   `
+  })};
+  transition: border-color var(--transition), box-shadow var(--transition);
+  
+  &.error {
+    border-color: ${colors.error};
+  }
+
+  &:hover {
+    box-shadow: ${theme('theme', {
+      light: `0 0 0 2px #A2C0D4`,
+      dark: `0 0 0 2px ${colors.dark}`
+    })};
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${colors.blue};
+  }
+
+  ${breakpoints.landscapeS} {
+    min-width: 450px;
+  }
+`
+
+export const Container = styled.div`
+  display: grid;
+  grid-gap: 24px;
+  margin-top: 24px;
+
+  ${breakpoints.landscapeS} {
+    grid-template-columns: 1fr;
+  }
+`
+
 export const Block = styled.div`
   display: flex;
   gap: 20px;

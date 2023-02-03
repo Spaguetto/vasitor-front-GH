@@ -1,28 +1,19 @@
 //TODO: clean file
 //FIXME: contexto del modal para que quede superpuesto en toda la pagina.
-import React, { useState, useEffect, useRef } from "react";
+//TODO: [VIS-90] integración con backend, crear o editar datos
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
-  DialogActions,
-  TextField,
-  Button,
-  FormControl,
-  FormLabel,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  Input,
-  Box
+  DialogActions
 } from "@mui/material";
 //import axios from "axios";
-import { Image } from "@mui/icons-material";
-import { registerStyles } from "@emotion/utils";
 // styled components
 import './style';
 import Btn from "@ui/Btn";
+import LabeledFormInput from "@ui/LabeledFormInput";
+import { Container, TextAreaField } from "./style";
 
 function RolesEditModal({ open, onClose, onRegister, data }) {
   const [formData, setFormData] = useState({});
@@ -61,36 +52,35 @@ function RolesEditModal({ open, onClose, onRegister, data }) {
     //   });
   };
 
-
-  //TODO: implementar fields del template:
-  // usando <Container/> (ver ejemplo usersettings)
-  // <LabeledFormInput id={`${type}ProfileBirthday`} title="Birthday" placeholder="Birthday"
-  // customInput={<Input as={DateInput} id={`${type}ProfileBirthday`} />}/>
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Register new role</DialogTitle>
       <DialogContent>
         <form>
-          <FormGroup>
-            <TextField
-              onChange={handleChangeField}
-              required
-              name="roleName"
-              color="primary"
-              variant="standard"
-              label="Role Name"
+          <Container>
+            <LabeledFormInput 
+              id={`${data.id}rolename`}
+              title="Role Name"
+              fieldName="roleName"
+              placeholder="role name"
+              handler={handleChangeField}
               defaultValue={data.roleName ? data.roleName : undefined}
             />
-            <TextField
-              onChange={handleChangeField}
-              required
+            <LabeledFormInput 
+              id={`${data.id}description`}
+              title="Description" 
+              placeholder="description"
               name="description"
-              color="primary"
-              variant="standard"
-              label="Description"
-              defaultValue={data.description ? data.description : undefined}
+              customInput={
+                <TextAreaField
+                  name="description"
+                  defaultValue={data.description ? data.description : undefined}
+                  placeholder="description"
+                  onChange={handleChangeField}
+                />
+              }
             />
-          </FormGroup>
+          </Container>
         </form>
       </DialogContent>
       <DialogActions>

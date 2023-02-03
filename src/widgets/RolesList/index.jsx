@@ -26,6 +26,7 @@ import useGenderFilter from '@hooks/useGenderFilter';
 import useNotistack from '@hooks/useNotistack';
 
 // data placeholder
+//TODO: [VIS-88] integración con backend, traer datos
 import {roles} from '@db/roles';
 import Btn from '@ui/Btn';
 import DeleteConfirmAlert from '@ui/DeleteConfirmModal';

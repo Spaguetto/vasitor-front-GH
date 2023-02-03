@@ -38,10 +38,21 @@ export const Input = styled.input`
   }
 `
 
-const Field = ({type = 'text', placeholder, value, handler, id, className}) => {
+const Field = ({
+  type = 'text', 
+  placeholder, 
+  value, 
+  handler, 
+  fieldName, 
+  id, 
+  defaultValue, 
+  className
+}) => {
     return <Input type={type}
                   placeholder={placeholder}
                   value={value}
+                  name={fieldName}
+                  defaultValue={defaultValue}
                   onChange={handler}
                   id={id}
                   className={className || ''}

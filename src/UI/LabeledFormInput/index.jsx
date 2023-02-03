@@ -18,7 +18,17 @@ const Label = styled.label`
   margin-bottom: 8px;
 `
 
-const LabeledFormInput = ({id, title, type = 'text', placeholder, value = '', customInput}) => {
+const LabeledFormInput = ({
+    id, 
+    title, 
+    type = 'text', 
+    placeholder, 
+    value = '', 
+    handler, 
+    defaultValue, 
+    customInput,
+    fieldName
+}) => {
     return (
         <Wrapper>
             <Label htmlFor={id}>{title}</Label>
@@ -26,7 +36,13 @@ const LabeledFormInput = ({id, title, type = 'text', placeholder, value = '', cu
                 customInput ?
                     customInput
                     :
-                    <Field type={type} defaultValue={value} id={id} placeholder={placeholder}/>
+                    <Field 
+                        type={type} 
+                        defaultValue={defaultValue} 
+                        id={id}
+                        fieldName={fieldName} 
+                        handler={handler}
+                        placeholder={placeholder}/>
             }
         </Wrapper>
     )
